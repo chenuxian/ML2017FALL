@@ -10,7 +10,7 @@ import pandas
 # do not show scientific notation
 np.set_printoptions(suppress=True)
 
-repeat = 1000000
+repeat = 10000000
 l_rate = 0.00001
 
 # Model: amb_temp + O3 + PM10 + PM2.5 + RH + PM10^2 + PM2.5^2 + bias
@@ -87,7 +87,6 @@ for i in range(repeat):
     ada = np.sqrt(s_gra)
     
     w = w - l_rate * gra/ada
-    #print (cost_a)
 
 print_w = []
 for m in range(64):

@@ -10,11 +10,11 @@ import pandas
 # do not show scientific notation
 np.set_printoptions(suppress=True)
 
-repeat = 67890
+repeat = 10000
 l_rate = 15
 
-# Model: PM10 + PM2.5 + PM10^2 + PM2.5^2 + bias
-w = [0] * 37
+# Model: PM10 + PM2.5 + bias
+w = [0] * 19
 w = np.array(w)
 
 all_feature = [[]] * 18
@@ -42,7 +42,7 @@ for f_index in range(0, len_feature):
         feature[f_index][month].append(temp_feature[f_index][i])
 
 # get every 9 data into x and get 10th PM2.5 into y
-# x will look like this [1, PM10, PM2.5, PM10^2, PM2.5^2]
+# x will look like this [1, PM10, PM2.5]
 x = []
 y = []
 for month in range(0, 12):
@@ -51,10 +51,6 @@ for month in range(0, 12):
         for f_index in range(0, 2):
             temp_x += feature[f_index][month][i:i+9]
 
-        for j in range(0, 2):
-            for k in range(i, i+9):
-                temp_x.append(feature[j][month][k] ** 2)
-        #temp_x += [1]
         x.append(temp_x)
         y.append(feature[1][month][i+9])
 
@@ -87,35 +83,6 @@ for i in range(repeat):
     #print (cost_a)
 
 print_w = []
-for m in range(37):
+for m in range(len(w)):
     print_w.append(w[m])
 print(print_w)
-
-"""
-# start training w
-len_y = len(y)
-for i in range(0, training_time):
-    total = [0] * 64
-    cost= 0
-    for j in range(0, len_y):
-        # wx
-        inner_product = 0
-        for k in range(0, 64):
-            inner_product = inner_product + w[k] * float(x[j][k])
-
-        # get y - wx
-        inner_product = inner_product - float(y[j])
-
-	# get total cost
-        cost = cost + inner_product ** 2
-        
-        # get Σ(y - wx)x 
-        for k in range(0,64):
-            total[k] = total[k] + learning_rate * inner_product * float(x[j][k])
-    
-    print(cost/(2*len_y))
-    # update w
-    for k in range(0,64):
-        w[k] = w[k] - (total[k] / len_y)
-        
-print(w)"""
