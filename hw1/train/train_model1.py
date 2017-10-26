@@ -19,7 +19,7 @@ w = np.array(w)
 
 all_feature = [[]] * 18
 # get all data into feature list
-data = pandas.read_csv(r"train.csv").values.tolist()
+data = pandas.read_csv(r"../data/train.csv").values.tolist()
 for i in range(0, len(data)):
     all_feature[i%18] = all_feature[i%18] + data[i][3:27]
 
@@ -81,6 +81,7 @@ for i in range(repeat):
     
     w = w - l_rate * gra/ada
     #print (cost_a)
+
 
 print_w = []
 for m in range(len(w)):
