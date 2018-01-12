@@ -3,14 +3,14 @@ import numpy as np
 from numpy import matlib, linalg
 from skimage import transform, io
 
-pixel = 120
+pixel = 600
 img = np.zeros((pixel * pixel * 3, 415))
 for i in range (415):
     file_name = sys.argv[1] + '/' + str(i) + ".jpg"
     tmp = io.imread(file_name)
     
     #resize
-    tmp = transform.resize(tmp, (pixel, pixel, 3))
+    #tmp = transform.resize(tmp, (pixel, pixel, 3))
 
     img[:, i] = tmp.flatten()
 
